@@ -9,7 +9,10 @@ interface Item {
   price: number
   image: string
   seller: string
+  shopName?: string
   available: boolean
+  deliveryTime?: number
+  volume?: string
 }
 
 export default function Wishlist() {
@@ -59,33 +62,41 @@ export default function Wishlist() {
           </a>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {wishlist.map((item) => (
             <div key={item.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center text-6xl">
-                {item.image}
+              {/* Product Image */}
+              <div className="h-64 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                <div className="text-8xl">{item.image}</div>
               </div>
+              
               <div className="p-5">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.name}</h3>
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">{item.description}</p>
-                <p className="text-xs text-gray-500 mb-2">Seller: {item.seller}</p>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-blue-600">${item.price}</span>
-                  <span className={`px-2 py-1 rounded text-xs ${item.available ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                    {item.available ? 'Available' : 'Unavailable'}
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => addToCart(item)}
-                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-                  >
-                    Add to Cart
-                  </button>
+                {/* Delivery Time */}
+                {item.deliveryTime && (
+                  <div className="flex items-center mb-2">
+                    <div className="w-4 h-4 bg-orange-400 rounded-full mr-2"></div>
+                    <span className="text-sm font-semibold text-gray-900">{item.deliveryTime} MINS</span>
+                  </div>
+                )}
+
+                {/* Product Name */}
+                <h3 className="text-lg font-bold text-gray-900 mb-1 line-clamp-2">{item.name}</h3>
+                
+                {/* Volume */}
+                {item.volume && (
+                  <p className="text-sm text-gray-600 mb-3">{item.volume}</p>
+                )}
+
+                {/* Shop Name */}
+                <p className="text-xs text-gray-500 mb-3">Shop: {item.shopName || item.seller}</p>
+
+                {/* Price and Remove Button */}
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold text-gray-900">₹{item.price}</span>
+                  
                   <button
                     onClick={() => removeFromWishlist(item.id)}
-                    className="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
-                    title="Remove from Wishlist"
+                    className="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors"
                   >
                     Remove
                   </button>
