@@ -21,7 +21,7 @@ export default function SellerLayout({
       return
     }
     if (localStorage.getItem('userRole') !== 'seller') {
-      router.push('/role-selection')
+      router.push('/signup')
     }
 
     // Check for pending bookings

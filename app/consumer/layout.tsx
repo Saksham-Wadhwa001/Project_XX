@@ -20,7 +20,7 @@ export default function ConsumerLayout({
       return
     }
     if (localStorage.getItem('userRole') !== 'consumer') {
-      router.push('/role-selection')
+      router.push('/signup')
     }
   }, [router])
 
