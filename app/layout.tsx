@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/600.css';
 
 export const metadata: Metadata = {
   title: 'Project X - Booking Platform',
